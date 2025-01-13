@@ -1,0 +1,14 @@
+﻿@NotificationAPI_HostAddress = http://localhost:5129
+
+GET {{NotificationAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+### Gửi Notification
+POST http://localhost:5129/api/notification/send
+Content-Type: application/json
+
+{
+    "title": "Hello!",
+    "body": "This is a test notification from NotificationAPI."
+}
