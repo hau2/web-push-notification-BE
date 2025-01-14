@@ -6,28 +6,25 @@ namespace NotificationAPI.Services
 {
 	public class NotificationService
 	{
-		private readonly string _vapidPublicKey = "BO5-bgJqcpF87kkwGV34NLuezchy4bQOIf3-T2eT5Hh9V4rSNyWczVB6SrD84ZwoEwi971m1ZtecIAjlmrZOg1U";
-		private readonly string _vapidPrivateKey = "JzjVF9BGbqlJ5tu_sHmEauyU7mi8xUNMWuR4SHobVrg";
+		private readonly string _vapidPublicKey = "BOmI-_Eat9iH0TYjh7D3E1XOwmmlfCW6wpK8J5pV-MezE_VwSkafAcn1OhAjLqK1l1UqfaCZ7ORkYWROlWLDqEU";
+		private readonly string _vapidPrivateKey = "ndmKxdZkvxOMJmTLyD4WMRDAy1h82DRsBqSNMr5Euo0";
 
-		public void SendNotification(PushSubscription subscription, string title, string body)
+		public void SendNotification(PushSubscription subscription, string title, string body, string url="/")
 		{
-			// Khởi tạo PushServiceClient
 			var pushService = new PushServiceClient();
 
-			// Sử dụng constructor của VapidAuthentication để truyền publicKey và privateKey
 			pushService.DefaultAuthentication = new VapidAuthentication(_vapidPublicKey, _vapidPrivateKey)
 			{
 				Subject = "mailto:your-email@example.com"
 			};
 
-			// Dữ liệu thông báo
 			var notification = new PushMessage(JsonSerializer.Serialize(new
 			{
 				title,
-				body
+				body,
+				url
 			}));
 
-			// Gửi thông báo
 			pushService.RequestPushMessageDeliveryAsync(subscription, notification).Wait();
 		}
 	}

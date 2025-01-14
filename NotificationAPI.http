@@ -10,5 +10,6 @@ Content-Type: application/json
 
 {
     "title": "Hello!",
-    "body": "This is a test notification from NotificationAPI."
+    "body": "This is a test notification from NotificationAPI.",
+    "url": "https://www.npmjs.com/package/react-syntax-highlighter"
 }

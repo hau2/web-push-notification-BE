@@ -7,22 +7,19 @@ builder.Logging.AddConsole();
 
 
 // Thêm CORS vào DI container
+// Cấu hình CORS
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowReactApp", policy =>
+	options.AddPolicy("AllowSpecificOrigin", policy =>
 	{
-		policy.WithOrigins("http://localhost:3000") // Địa chỉ React App
+		policy.WithOrigins("https://example.com", "https://another-domain.com") // Thay bằng tên miền bạn muốn cho phép
 					.AllowAnyHeader()
 					.AllowAnyMethod();
 	});
-});
 
-// Thêm CORS vào DI container
-builder.Services.AddCors(options =>
-{
-	options.AddPolicy("AllowReactRealApp", policy =>
+	options.AddPolicy("AllowAll", policy =>
 	{
-		policy.WithOrigins("https://6bfxmc9p-3000.asse.devtunnels.ms:3000") // Địa chỉ React App
+		policy.AllowAnyOrigin() // Cho phép mọi tên miền
 					.AllowAnyHeader()
 					.AllowAnyMethod();
 	});
@@ -35,8 +32,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Kích hoạt CORS
-app.UseCors("AllowReactApp");
-app.UseCors("AllowReactRealApp");
+app.UseCors("AllowAll");
 
 app.UseSwagger();
 app.UseSwaggerUI();

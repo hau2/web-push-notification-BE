@@ -39,7 +39,8 @@ namespace NotificationAPI.Controllers
 		{
 			foreach (var subscription in _subscriptions)
 			{
-				_notificationService.SendNotification(subscription, request.Title, request.Body);
+				_notificationService.SendNotification(subscription, request.Title, request.Body, request.Url);
+				_logger.LogInformation("URL: " + request.Url);
 				_logger.LogInformation("Notification sent to subscription: {Subscription}", System.Text.Json.JsonSerializer.Serialize(subscription));
 			}
 
@@ -51,5 +52,6 @@ namespace NotificationAPI.Controllers
 	{
 		public string Title { get; set; }
 		public string Body { get; set; }
+		public string Url { get; set; }
 	}
 }
